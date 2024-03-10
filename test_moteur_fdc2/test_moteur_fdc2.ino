@@ -1,6 +1,6 @@
 #include <AFMotor.h>
 
-  AF_DCMotor motor(2, MOTOR12_1KHZ); // Création du moteur n ° 2 , 8KHz pwm
+  AF_DCMotor motor(2, MOTOR12_64KHZ); // Création du moteur n ° 2 , 8KHz pwm
 
   int seuil = 300; //seuil luminosité modifiable ici ou avec la vis sur le capteur
   int captfdc1; //declaration de la variable 0 ou 1 soit ouvert ou fermée
