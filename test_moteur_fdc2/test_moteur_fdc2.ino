@@ -31,7 +31,7 @@ void loop() {
   captfdc1 = digitalRead(FDC1);
   captfdc2 = digitalRead(FDC2);
   
-  if(captfdc2 == 1){
+  if(captfdc2 == 0){
      Serial.print ("ouverture Matin \n");
      motor.setSpeed(VMotor);
      motor.run(BACKWARD);    
@@ -39,7 +39,7 @@ void loop() {
   captfdc1 = digitalRead(FDC1);
   captfdc2 = digitalRead(FDC2);
   
-  if(captfdc1 ==0){
+  if(captfdc1 == 0){
     Serial.print ("fermeture Soir \n");
     motor.setSpeed(VMotor);
     motor.run(FORWARD); // moteur en marche
@@ -47,13 +47,10 @@ void loop() {
   captfdc1 = digitalRead(FDC1);
   captfdc2 = digitalRead(FDC2);
 
-  if(captfdc1 ==1){
-    motor.run(RELEASE);
-  }
   captfdc1 = digitalRead(FDC1);
   captfdc2 = digitalRead(FDC2);
   
-  if(captfdc1 ==0){
+  if(captfdc1 == 1|| captfdc2==1){
     motor.run(RELEASE);
   }
   

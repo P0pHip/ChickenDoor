@@ -6,7 +6,7 @@
   int captfdc1; //declaration de la variable 0 ou 1 soit ouvert ou fermée
   int captfdc2; //declaration de la variable 0 ou 1 soit ouvert ou fermée
 
-  const int VMotor = 90; // changer ce parametre permet de changer la vitesse du moteur
+  const int VMotor = 250; // changer ce parametre permet de changer la vitesse du moteur
 
   int captLum = A2; //declaration du pin du capteur
   int FDC1 = A3;    //declaration du pin du capteur
