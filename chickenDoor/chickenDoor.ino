@@ -54,8 +54,7 @@ void loop() {
   int luminosite = analogRead(captLum);  // Lire la luminosité actuelle
 
   // Si la luminosité est inférieure au seuil (matin), on tente d'ouvrir
-  if (luminosite < seuil && che
-  ckLuminosite(seuil, true)) {
+  if (luminosite < seuil && checkLuminosite(seuil, true)) {
     if (digitalRead(FDC1) == 0) {  // Si le capteur de fin de course 1 n'est pas atteint
       controlMotor(true);           // Ouvrir le mécanisme
     }
