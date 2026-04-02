@@ -21,8 +21,8 @@ void setup() {
   motor.enable();            // Activation du moteur
 
   pinMode(captLum, INPUT);   // Définir le capteur de lumière comme entrée
-  pinMode(FDC1, INPUT);      // Définir FDC1 comme entrée
-  pinMode(FDC2, INPUT);      // Définir FDC2 comme entrée
+  pinMode(FDC1, INPUT_PULLUP);      // Définir FDC1 comme entrée
+  pinMode(FDC2, INPUT_PULLUP);      // Définir FDC2 comme entrée
 
   Serial.println("=== Démarrage du système ===");
   Serial.println("Test du moteur avec capteurs et luminosité...");
@@ -38,15 +38,17 @@ void controlMotor(bool ouverture) {
     motor.pwm = VMotor;
     motor.front();  // Rotation avant pour ouverture
     Serial.println("En attente de FDC1...");
-    while (digitalRead(FDC1) == 0) {}  // Attendre que FDC1 soit atteint
+    while (digitalRead(FDC1) == 1) {}  // Attendre que FDC1 soit atteint
     Serial.println("FDC1 atteint !");
+    Serial.println("FDC1 : " + String(digitalRead(FDC1)));
   } else {
     Serial.println("Fermeture du mécanisme (Soir)");
     motor.pwm = VMotor;
     motor.back();   // Rotation arrière pour fermeture
     Serial.println("En attente de FDC2...");
-    while (digitalRead(FDC2) == 0) {}  // Attendre que FDC2 soit atteint
+    while (digitalRead(FDC2) == 1) {}  // Attendre que FDC2 soit atteint
     Serial.println("FDC2 atteint !");
+    Serial.println("FDC2 : " + String(digitalRead(FDC2)));
   }
   motor.stop();  // Arrêt du moteur après l'action
   Serial.println("Arrêt du moteur");
@@ -69,7 +71,7 @@ void loop() {
   // Si la luminosité est inférieure au seuil (matin), on tente d'ouvrir
   if (luminosite < seuil && checkLuminosite(seuil, true)) {
     Serial.println("Condition d'ouverture validée !");
-    if (digitalRead(FDC1) == 0) {  // Si le capteur de fin de course 1 n'est pas atteint
+    if (digitalRead(FDC1) == 1) {  // Si le capteur de fin de course 1 n'est pas atteint
       controlMotor(true);           // Ouvrir le mécanisme
     } else {
       Serial.println("FDC1 déjà atteint, ouverture ignorée");
@@ -79,7 +81,7 @@ void loop() {
   // Si la luminosité est supérieure au seuil (soir), on tente de fermer
   if (luminosite > seuil && checkLuminosite(seuil, false)) {
     Serial.println("Condition de fermeture validée !");
-    if (digitalRead(FDC2) == 0) {  // Si le capteur de fin de course 2 n'est pas atteint
+    if (digitalRead(FDC2) == 1) {  // Si le capteur de fin de course 2 n'est pas atteint
       controlMotor(false);          // Fermer le mécanisme
     } else {
       Serial.println("FDC2 déjà atteint, fermeture ignorée");
